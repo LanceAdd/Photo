@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- TOP TOOLBAR -->
+    <header id="toolbar">
+      <div class="toolbar-left">
+        <span class="app-name">Photo</span>
+        <div class="toolbar-divider"></div>
+        <button id="btn-open-folder" class="btn-primary" title="添加新工作区">+ 添加文件夹</button>
+        <nav id="breadcrumb"></nav>
+      </div>
+      <div class="toolbar-center">
+      </div>
+      <div class="toolbar-right">
+        <span id="photo-count" class="photo-count"></span>
+        <div class="view-toggle-group">
+          <button class="view-btn active" data-view="grid" title="网格视图">⊞ 网格</button>
+          <button class="view-btn" data-view="cull" title="选片模式">⍖ 选片</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div id="main-layout">
+
+      <!-- LEFT PANEL: Workspaces + Folder Tree + Filter -->
+      <aside id="folder-panel">
+        <!-- Workspace list -->
+        <div class="panel-section">
+          <div class="panel-title">
+            <span>工作区</span>
+            <button id="btn-add-workspace" class="panel-action-btn" title="添加文件夹">+</button>
+          </div>
+          <div id="workspace-list"></div>
+        </div>
+
+        <!-- Folder tree for active workspace -->
+        <div class="panel-section panel-section-tree">
+          <div class="panel-title">
+            <span id="folder-tree-title">文件夹</span>
+          </div>
+          <div id="folder-tree"></div>
+        </div>
+
+        <!-- Filter section -->
+        <div class="panel-section panel-section-filter">
+          <div class="panel-title">
+            <span>筛选</span>
+            <button id="btn-reset-filter" class="panel-action-btn" title="清除筛选">↺</button>
+          </div>
+          <div id="filter-panel">
+            <div class="filter-group">
+              <div class="filter-group-label">星级</div>
+              <div id="star-filter"></div>
+            </div>
+            <div class="filter-group">
+              <div class="filter-group-label">颜色标签</div>
+              <div id="label-filter"></div>
+            </div>
+            <div class="filter-group">
+              <label class="filter-flagged-toggle">
+                <input type="checkbox" id="filter-flagged-check"> 仅显示已标记
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER: Photo Grid / Culling / Albums -->
+      <main id="content-area">
+        <div id="photo-grid" class="view active"></div>
+
+        <!-- Culling view -->
+        <div id="cull-view" class="view">
+          <div id="cull-main">
+            <button id="cull-prev" class="cull-nav-btn">&#8249;</button>
+            <img id="cull-image" src="" alt="" />
+            <button id="cull-next" class="cull-nav-btn">&#8250;</button>
+            <div id="cull-toolbar">
+              <button id="cull-rotate-ccw" class="cull-tool-btn" title="逆时针旋转 ([)">↺</button>
+              <button id="cull-rotate-cw" class="cull-tool-btn" title="顺时针旋转 (])">↻</button>
+            </div>
+          </div>
+          <div id="cull-info">
+            <span id="cull-filename"></span>
+            <span id="cull-counter"></span>
+          </div>
+          <div id="cull-controls"></div>
+          <div id="cull-filmstrip"></div>
+        </div>
+
+        <!-- Albums view removed (Phase 3) -->
+      </main>
+
+      <!-- RIGHT: Metadata Panel -->
+      <aside id="metadata-panel" class="hidden">
+        <div class="panel-title">
+          <span>详细信息</span>
+          <button class="panel-action-btn" id="btn-close-meta" title="关闭">×</button>
+        </div>
+        <div id="rating-control"></div>
+        <div id="exif-display"></div>
+      </aside>
+
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div id="lightbox" class="hidden">
+      <button id="lb-close" class="lb-btn lb-close-btn">✕</button>
+      <button id="lb-prev" class="lb-btn lb-nav-btn">&#8249;</button>
+      <img id="lb-image" src="" alt="" />
+      <button id="lb-next" class="lb-btn lb-nav-btn">&#8250;</button>
+      <div id="lb-toolbar">
+        <button id="lb-rotate" class="lb-tool-btn" title="顺时针旋转 ([)">↻</button>
+        <button id="lb-info-toggle" class="lb-tool-btn" title="显示/隐藏信息 (I)">ℹ</button>
+      </div>
+      <div id="lb-info">
+        <span id="lb-filename"></span>
+        <span id="lb-counter"></span>
+      </div>
+      <div id="lb-exif-panel" class="hidden"></div>
+    </div>
+
+  </div>
+
+  <!-- Scripts: dependency order, no type="module" -->
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/photo-grid.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/metadata-panel.js"></script>
+  <script src="js/ratings.js"></script>
+  <script src="js/context-menu.js"></script>
+  <script src="js/culling.js"></script>
+  <script src="js/folder-panel.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
