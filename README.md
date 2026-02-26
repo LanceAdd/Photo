@@ -1,3 +1,5 @@
+[中文](README.zh.md) | English
+
 # Photo
 
 A lightweight desktop photo manager built with Tauri 2 + Vanilla JS.
